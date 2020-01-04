@@ -1,4 +1,5 @@
 import 'package:carros/pages/home_page.dart';
+import 'package:carros/pages/login_api.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -67,19 +68,23 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _onClickLogin() {
+  _onClickLogin() async {
     bool formOk = _formKey.currentState.validate();
 
     if (!formOk) {
       return;
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (BuildContext context) {
-        return HomePage();
-      }),
-    );
+    bool ok = await LoginApi.login(_tLogin.text, _tSenha.text);
+
+    if (ok) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) {
+          return HomePage();
+        }),
+      );
+    }
   }
 
   String validateLogin(String text) {
