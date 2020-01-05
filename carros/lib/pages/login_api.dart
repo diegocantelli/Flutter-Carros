@@ -30,7 +30,8 @@ class LoginApi {
 
       return ApiResponse.error(mapResponse["error"]);
     } catch (error, exception) {
-      return ApiResponse.error("Não foi possível se conectar ao servidor");
+      return ApiResponse.error(
+          "Não foi possível se conectar ao servidor $error");
     }
   }
 }
