@@ -1,5 +1,8 @@
+import 'package:carros/pages/alert.dart';
+import 'package:carros/pages/api_response.dart';
 import 'package:carros/pages/home_page.dart';
 import 'package:carros/pages/login_api.dart';
+import 'package:carros/pages/usuario.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -75,15 +78,18 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    bool ok = await LoginApi.login(_tLogin.text, _tSenha.text);
+    ApiResponse response = await LoginApi.login(_tLogin.text, _tSenha.text);
 
-    if (ok) {
+    if (response.ok) {
+      Usuario user = response.result;
       Navigator.push(
         context,
         MaterialPageRoute(builder: (BuildContext context) {
           return HomePage();
         }),
       );
+    } else {
+      alert(context, response.msg);
     }
   }
 
