@@ -1,3 +1,4 @@
+import 'package:carros/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -45,14 +46,19 @@ class _AppDrawerState extends State<AppDrawer> {
               title: Text("Sair"),
               subtitle: Text("Sair do aplicativo"),
               trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                print("Item 1");
-                Navigator.pop(context);
-              },
+              onTap: () => _onClickLogout(context),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void _onClickLogout(BuildContext context) {
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
     );
   }
 }
