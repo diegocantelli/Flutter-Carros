@@ -1,4 +1,5 @@
 import 'package:carros/pages/app_drawer.dart';
+import 'package:carros/pages/carro.dart';
 import 'package:carros/pages/carros_api.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +16,39 @@ class HomePage extends StatelessWidget {
   }
 
   _body() {
-    var carros = CarrosApi.getCarros();
+    var carrosFuture = CarrosApi.getCarros();
 
+    return FutureBuilder(
+      future: carrosFuture,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        var carros = snapshot.data;
+        return _listView(carros);
+      },
+    );
+
+    // return Container(
+    //   width: double.infinity,
+    //   child: Center(
+    //     child: Text(
+    //       "Diego",
+    //       style: TextStyle(
+    //         fontSize: 20,
+    //       ),
+    //     ),
+    //   ),
+    // );
+  }
+
+  _listView(List<Carro> carros) {
     return Container(
       padding: EdgeInsets.all(16),
       child: ListView.builder(
-        itemCount: carros.length,
+        itemCount: carros != null ? carros.length : 0,
         itemBuilder: (context, index) {
           var c = carros[index];
           return Card(
@@ -79,17 +107,5 @@ class HomePage extends StatelessWidget {
         },
       ),
     );
-
-    // return Container(
-    //   width: double.infinity,
-    //   child: Center(
-    //     child: Text(
-    //       "Diego",
-    //       style: TextStyle(
-    //         fontSize: 20,
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }
