@@ -21,6 +21,14 @@ class HomePage extends StatelessWidget {
     return FutureBuilder(
       future: carrosFuture,
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(
+            child: Text(
+              "Não foi possível carregar a lista de carros",
+              style: TextStyle(color: Colors.redAccent),
+            ),
+          );
+        }
         if (!snapshot.hasData) {
           return Center(
             child: CircularProgressIndicator(),
@@ -60,7 +68,8 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   Center(
                     child: Image.network(
-                      c.urlFoto,
+                      c.urlFoto ??
+                          'http://www.livroandroid.com.br/livro/carros/classicos/Dodge_Challenger.png',
                       width: 150,
                     ),
                   ),
