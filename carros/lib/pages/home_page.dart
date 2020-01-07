@@ -37,9 +37,9 @@ class HomePage extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            CarrosListView(),
-            CarrosListView(),
-            CarrosListView(),
+            CarrosListView(TipoCarro.classicos.toString()),
+            CarrosListView(TipoCarro.esportivos.toString()),
+            CarrosListView(TipoCarro.luxo.toString()),
           ],
         ),
         drawer: AppDrawer(),
